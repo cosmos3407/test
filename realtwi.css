@@ -1,0 +1,189 @@
+html {
+    overflow: auto
+}
+
+@import "https://fonts.googleapis.com/css?family=Lato:400,700";@import "http://fonts.googleapis.com/earlyaccess/notosansjp.css";body {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-family: Lato,noto sans jp,��s�v�b�n medium,��s�v�b�n��,yu gothic medium,YuGothic,�q���m�m�p�s pron,hiragino kaku gothic pron,���c���i,Meiryo,�l�r �o�s�v�b�n,ms pgothic,sans-serif;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden
+}
+
+#container {
+    width: 100%;
+    margin: auto
+}
+
+#here {
+    background-color: #a4dbf7;
+    border-radius: 5px 5px 0px 0px/5px 5px 0px 0px;
+    color: #02638e
+}
+
+#here a {
+    color: #035592
+}
+
+.item item_w180 {
+    width: 180px;
+    float: left
+}
+
+.item item_w360 {
+    width: 361px;
+    float: left;
+    padding-left: 30px
+}
+
+.gazou {
+    position: relative;
+    top: 50%
+}
+
+.gazou .poster {
+    z-index: 0
+}
+
+.item_w360 .saisei {
+    z-index: 10;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%)
+}
+
+.item_w180 .saisei {
+    z-index: 10;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%)
+}
+
+.item .saisei img {
+    width: 50%;
+    max-width: 150px;
+    height: auto
+}
+
+table {
+    margin-right: auto;
+    margin-left: auto
+}
+
+header {
+    text-align: center
+}
+
+footer {
+    text-align: center
+}
+
+#headertop {
+    background-color: #17aaff;
+    text-align: center;
+    height: 22px
+}
+
+#footerlast {
+    background-color: #17aaff
+}
+
+#wrap {
+    min-width: 320px;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto
+}
+
+#box {
+    text-align: left;
+    border-style: solid;
+    border-width: 1px;
+    margin: 0 auto;
+    padding: 5px;
+    min-width: 300px
+}
+
+#exec {
+    cursor: pointer;
+    width: 150px;
+    height: 45px;
+    border: none;
+    text-indent: -9999px;
+    background: url(img/t_botton.png) no-repeat 0 0;
+    margin: 0 auto
+}
+
+#reset {
+    cursor: pointer;
+    width: 150px;
+    height: 45px;
+    border: none;
+    text-indent: -9999px;
+    background: url(img/r_botton.png) no-repeat 0 0;
+    margin: 0 auto
+}
+
+ul.share-buttons {
+    list-style: none;
+    padding: 0
+}
+
+ul.share-buttons li {
+    display: inline;
+    margin-left: 8px;
+    margin-right: 8px
+}
+
+li {
+    margin-bottom: 7px
+}
+
+#nav ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0
+}
+
+#nav ul li {
+    display: inline;
+    position: relative;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left-width: 1px;
+    border-left-style: dotted;
+    border-left-color: #ccc;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0
+}
+
+#nav li a {
+    float: left;
+    color: #fff;
+    text-decoration: none
+}
+
+input,textarea,select {
+    font-size: 16px
+}
+
+.smanone {
+    display: none
+}
+
+@media only screen and (min-width: 781px) {
+    .smanone {
+        display:block
+    }
+
+    .pcnone {
+        display: none
+    }
+}
