@@ -116,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, user-scalable=1" />
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
     <script type="text/javascript" src="https://static.criteo.net/js/ld/publishertag.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>
@@ -154,9 +155,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div style="display:inline-flex">
                 <div id="nav">
                     <ul>
-                        <li id="here" style="padding-top: 1px;"><b>저장</b></li>
-                        <li><a href="https://twi-save.com/ranking_t.php?index=0">랭킹</a></li>
-                        <li><a href="https://twi-save.com/realtime_t.php">실시간</a></li>
+                        <li class="save popupOpen" id="here" style="padding-top: 1px;"><b>저장</b></li>
+                        <li class="ranking popupOpen">랭킹</li>
+                        <li class="live popupOpen">실시간</li>
                     </ul>
                 </div>
             </div>
@@ -254,7 +255,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         <br>
         <div>
-            <iframe style="display:none;" src="https://27934.agatarainpro.com/v2/a/na/if/195111" frameborder="0" scrolling="no" width="300" height="250"></iframe>
+            <!-- <iframe style="display:none;" src="https://27934.agatarainpro.com/v2/a/na/if/195111" frameborder="0" scrolling="no" width="300" height="250"></iframe> -->
+            <!-- 전면 광고  -->
+            <img src="img/test.jpg">
         </div>
         <br>
         <div class="pcnone">
@@ -328,11 +331,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             &nbsp;
         </div>
     </footer>
+
+    <!-- popup -->
+    <div class="layer_bg">
+
+        <div class="popup">
+            <p class="popup_close">x</p>
+            <h2>
+                <img src="img/test.jpg">
+            </h2>
+        </div>
+    </div>
+
+
     <link rel="stylesheet" type="text/css" href="jquery.bxslider/jquery.bxslider.css">
     <script src="jquery.bxslider/jquery.bxslider.js"></script>
     <script src="js/autoloading.js"></script>
     <script src="js/jquery.overlayad.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
+        $(document).ready(function() {
+            let url;
+            // 팝업 열기
+            $(".popupOpen").on("click", function() {
+                url = $(this).attr('class').split(' ')[0];
+                console.log(url)
+                if ($('.layer_bg').css('display') == 'none') {
+                    $('.layer_bg').show();
+
+                    $('html, body').css({
+                        'overflow': 'hidden',
+                        'height': '100%'
+                    });
+                }
+
+            })
+
+            // 팝업 닫기
+            $(".popup_close").on("click", function() {
+                console.log("popup_close");
+                if ($('.layer_bg').css('display') != 'none') {
+                    $('.layer_bg').hide();
+                    // $('body').off('scroll touchmove mousewheel');
+                }
+                $('html, body').css({
+                    'overflow': 'scroll'
+                });
+
+                switch (url) {
+                    case "save":
+                        location.href="index.php"
+                        break;
+                    case "ranking":
+                        location.href="ranking_t.php?index=0"
+                        break;
+                    case "live":
+                        location.href="realtime_t.php"
+                        break;
+                    default:
+                        break;
+                }
+            })
+
+        })
     </script>
 </body>
 

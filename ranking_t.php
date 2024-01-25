@@ -33,6 +33,11 @@
 
         //gtag('config', 'G-C803NGZCN4');
     </script>
+    <!-- 추가부분 -->
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/js/common.js"></script>
+    <!-- 추가부분 -->
 </head>
 
 <body style="background-color: #a4dbf7;">
@@ -43,9 +48,9 @@
             <div style="display:inline-flex">
                 <div id="nav">
                     <ul>
-                        <li><a href="https://twi-save.com/index.php">저장</a></li>
-                        <li id="here" style="padding-top: 1px;"><b>랭킹</b></li>
-                        <li><a href="https://twi-save.com/realtime_t.php">실시간</a></li>
+                    <li class="save popupOpen">저장</li>
+                        <li class="ranking popupOpen" id="here" style="padding-top: 1px;"><b>랭킹</b></li>
+                        <li class="live popupOpen">실시간</li>
                     </ul>
                 </div>
             </div>
@@ -54,6 +59,18 @@
             <a href="https://twi-save.com/ranking_t.php"><img src="img/twiranking.png" alt="twirank" weight="290" class="photo" style="margin-top: 6px;"></a>
         </div>
     </header>
+
+    <!-- popup -->
+    <div class="layer_bg">
+
+        <div class="popup">
+            <p class="popup_close">x</p>
+            <h2>
+                <img src="img/test.jpg">
+            </h2>
+        </div>
+    </div>
+
     <div id="wrap">
         <h2 style="margin-top: 0px; margin-bottom: 0px;">트윗저장고 랭킹!</h2>
         <form name="fm">
