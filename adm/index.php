@@ -17,13 +17,13 @@ include_once('../common.php');
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
   <link href="<?= CSS_URL ?>/bootstrap.min.css" rel="stylesheet">
   <link href="<?= CSS_URL ?>/bootstrap.css" rel="stylesheet">
+  <link href="<?= CSS_URL ?>/sign-in.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <script src="<?= JS_URL ?>/bootstrap.js"></script>
   <script src="<?= JS_URL ?>/bootstrap.min.js"></script>
   <script src="<?= JS_URL ?>/color-modes.js"></script>
 
-  <!-- Custom styles for this template -->
-  <link href="sign-in.css" rel="stylesheet">
+  
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">

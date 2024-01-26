@@ -59,20 +59,31 @@
             <a href="https://twi-save.com/ranking_t.php"><img src="img/twiranking.png" alt="twirank" weight="290" class="photo" style="margin-top: 6px;"></a>
         </div>
     </header>
-
+    
+    <div class="header">
+        <!-- 상단 배너 -->
+        <div class="banner">
+            <a href="#">
+                <img src="img/test.jpg">
+            </a>
+        </div>
+    </div>
+    
     <!-- popup -->
     <div class="layer_bg">
-
         <div class="popup">
             <p class="popup_close">x</p>
-            <h2>
+            <a href="#">
                 <img src="img/test.jpg">
-            </h2>
+            </a>
         </div>
     </div>
 
     <div id="wrap">
         <h2 style="margin-top: 0px; margin-bottom: 0px;">트윗저장고 랭킹!</h2>
+        <div style="margin-bottom: 10px;">
+            <img style="width: 300px;" src="img/test.jpg">
+        </div>
         <form name="fm">
             <select name="s" onchange="sample()" style="display:none;font-size:12px;">
             </select>

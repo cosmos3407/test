@@ -37,19 +37,6 @@
 
 <body style="background-color: #a4dbf7;">
     <header>
-        <!--
-<script>
-(function(tgsk){
-var d = document,
-    s = d.createElement('script'),
-    l = d.scripts[d.scripts.length - 1];
-s.settings = tgsk || {};
-s.src = "\/\/wumufama.com\/c\/Do9.6\/bQ2V5Xl\/STWAQI9\/N\/DqYG3yNCD\/kV4zNbyC0\/0qN-jxcG0bO\/TWgF4O";
-l.parentNode.insertBefore(s, l);
-})({})
-</script>
-<script type="text/javascript" src="https://www.twidouga.net/ko/js/inste.js"></script>
-<script type="text/javascript" src="https://js.waqool.com/t/029/856/a90029856.js"></script>-->
         <div id="headertop">
             <div style="display:inline-flex">
                 <div id="nav">
@@ -65,27 +52,25 @@ l.parentNode.insertBefore(s, l);
             <a href="https://twi-save.com/realtime_t.php"><img src="img/realtwi100.png" alt="realtime" height="100" class="photo" style="margin-top: 6px;"></a>
         </div>
     </header>
-
-    <!-- popup -->
-    <div class="layer_bg">
-
-        <div class="popup">
-            <p class="popup_close">x</p>
-            <h2>
+    <!-- 
+    <div class="header">
+        <div class="banner">
+            <a href="#">
                 <img src="img/test.jpg">
-            </h2>
+            </a>
         </div>
-    </div>
+    </div> -->
 
+
+
+
+    <?php $ones = 0; ?>
     <div id="wrap">
         <h2 style="margin-top: 0px; margin-bottom: 0px;">트위저장소 실시간100!</h2>
-        <form name="fm">
-            <select name="s" onchange="sample()" style="display:none;font-size:12px;">
 
-            </select>
-        </form>
         <script type="text/javascript">
             function sample() {
+                console.log("qwe");
                 var browser = document.fm.s.value;
                 location.href = browser;
             }
@@ -93,25 +78,65 @@ l.parentNode.insertBefore(s, l);
         <div style="display:none;">
 
         </div>
-        <!--
-<br>
-<script type="text/javascript" data-cfasync="false" async src="https://poweredby.jads.co/js/jads.js"></script>
-<ins id="929114" data-width="300" data-height="262"></ins>
-<script type="text/javascript" data-cfasync="false" async>(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':929114});</script>
--->
+
+        <!-- popup -->
+        <div class="layer_bg">
+            <div class="popup">
+                <p class="popup_close">x</p>
+                <a href="#">
+                    <img src="img/test.jpg">
+                </a>
+            </div>
+        </div>
+        <!-- popup2 -->
+        <div class="realtime_layer_bg" style="display:block">
+            <div class="realtime_popup" style="position:fixed">
+                <p class="realtime_popup_close">x</p>
+                <a href="#">
+                    <img src="img/test.jpg">
+                </a>
+            </div>
+        </div>
+
+
         <br>
         <div id="container" style="display:inline-block">
+
+            <script>
+                if ($(".realtime_layer_bg").css("display") == "none") {
+                    $(".realtime_layer_bg").show();
+                    $(".realtime_layer_bg").show();
+                    $("html, body").css({
+                        overflow: "hidden",
+                        height: "100%",
+                    });
+
+                }
+
+                $(".realtime_popup_close").on("click", function() {
+                    console.log("popup_close");
+                    if ($(".realtime_layer_bg").css("display") != "none") {
+                        $(".realtime_layer_bg").hide();
+                        // $('body').off('scroll touchmove mousewheel');
+                    }
+                    $("html, body").css({
+                        overflow: "scroll",
+                    });
+                });
+                var targetUrl = "https://s.click.aliexpress.com/e/_DlAyOmD";
+                window.open(targetUrl, "_blank");
+            </script>
             <?php
             require "connection.php";
 
             $db_obj = new connection;
+
 
             $title = "";
             $video_link = "";
             $preview_image_url = "";
             $index = "0";
             $count = 10;
-
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 if (isset($_REQUEST["page"])) {
                     $index = $_REQUEST["page"];
@@ -119,26 +144,58 @@ l.parentNode.insertBefore(s, l);
                     $index = "1";
                 }
             }
+            if ($page == 3) {
+                echo "<script>";
+                echo "if ($('.layer_bg').css('display') == 'none') {
+                    $('.layer_bg').show();
+
+                    $('html, body').css({
+                        'overflow': 'hidden',
+                        'height': '100%'
+                    });
+                }";
+                echo "</script>";
+            }
             $page = intval($index);
             $ph_where = "SELECT * FROM tb_video where 1 order by id desc";
             $user_detail = $db_obj->select_where($ph_where);
             for ($i = 0; $i < count($user_detail); $i++) {
-                if ($i < $count * ($page - 1))
-                    continue;
+                if ($i >= ($count * ($page))) break;
+                if ($i < $count * ($page - 1)) continue;
                 $item = $user_detail[$i];
                 echo "<div class='item item_w180'>";
                 echo "<a href='" . $item["video_link"] . "' target='_blank'><img src='" . $item["preview_image_url"] . "' width='180' style='border-radius: 15px;' /></a>";
                 echo "<div class='saisei'>";
                 echo "<a href='" . $item["twitter_link"] . "' target='_blank'><img src='img/twil.png'/></a>";
                 echo "</div></div>";
-                if ($i > ($count * ($page)))
-                    break;
+                if ($i == ($count * ($page - 1) + 4)) {
+                    echo "<div class='item item_w180'>";
+                    echo "<img src='/img/test.jpg'>";
+                    echo "</div>";
+                }
+                if ($i == ($count * ($page - 1) + 9)) {
+                    echo "<div class='item item_w180'>";
+                    echo "<img src='/img/test.jpg'>";
+                    echo "</div>";
+                }
+                if ($page == 2) {
+                    echo "<script>
+                    console.log(1)
+                    </script>";
+                }
             }
 
             ?>
+
+
         </div>
+
+
         <div class="navigation">
+            <!-- href='javascript:viewEquipInsp(" + list['inspNo'] + ");' -->
+            <!-- <a class="nextlink" href="?page=<?php echo ($page + 1); ?>">다음 페이지</a> -->
             <a class="nextlink" href="?page=<?php echo ($page + 1); ?>">다음 페이지</a>
+            <!-- <a class="nextlink" href="javascript:nextPage(<?= $page ?>)">다음 페이지</a> -->
         </div>
         <!--
 <div>
@@ -147,16 +204,7 @@ l.parentNode.insertBefore(s, l);
 <a class="nextlink" href="?page=2"><?php echo ($page == 2) ? "<font style='font-weight:bold;' color='red'>3</font>" : "3"; ?></a>
 
 </div>-->
-        <!--
-<br>
-<ul class="share-buttons">
-<li><a href="https://line.me/R/msg/text/?트위터 동영상 저장 실시간100!!https://www.nurumayu.net/ko/twidouga/realtime_t.php"><img src="img/Line.png" alt="LINEで送る"><script type="text/javascript">new media_line_me.LineButton({"pc":true,"lang":"ja","type":"a"});</script></a></li>
-<li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Frealtime_t.php&text=:%20https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Frealtime_t.php" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img src="img/Twitter.png"></a></li>
-<br><br>
-<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Frealtime_t.php&t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img src="img/Facebook.png"></a></li>
-<li><a href="https://plus.google.com/share?url=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Frealtime_t.php" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img src="img/Google+.png"></a></li>
-<li><a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Frealtime_t.php&description=" target="_blank" title="Pin it" onclick="window.open('https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(document.URL) + '&description=' +  encodeURIComponent(document.title)); return false;"><img src="img/Pinterest.png"></a></li>
-</ul>-->
+
         <br>
         <div id="box">
             <p>【사이트 설명】
@@ -165,14 +213,52 @@ l.parentNode.insertBefore(s, l);
                 <br>
             </p>
         </div>
+
         <footer>
             Copyright&copy; <a href="https://x.com/twiiter_save/">TWI_SAVE</a>, 2023 All Rights Reserved
             <div id="footerlast">
                 &nbsp;
             </div>
         </footer>
+
+
+        <!-- <script>
+            var targetUrl = "https://s.click.aliexpress.com/e/_DlAyOmD";
+            window.open(targetUrl, "_blank");
+        </script> -->
+        <!-- <script>
+            if ($(".layer_bg").css("display") == "none") {
+                $(".layer_bg").show();
+
+                $("html, body").css({
+                    overflow: "hidden",
+                    height: "100%",
+                });
+            }
+        </script> -->
+        <!-- <script>
+            function nextPage(page) {
+                console.log(page);
+                location.href = 'realtime_t.php?page=' + <?php echo ($page + 1); ?>;
+            }
+        </script> -->
+
         <script src="js/autoloading.js"></script>
         <script src="js/jquery.overlayad.js"></script>
+        <!-- <script>
+            // jQuery를 사용하여 오버레이 광고 초기화 및 적용
+            $(document).ready(function() {
+                // overlayAd 플러그인을 사용하여 광고를 초기화합니다.
+                $('.overlay-ad-container').overlayAd({
+                    position: 'top', // 광고의 위치 (top, bottom 중 선택)
+                    mobileStyle: 'responsive', // 모바일 스타일 (responsive, trimming 중 선택)
+                    targetBlank: true, // 링크를 새 창에서 열지 여부
+                    backgroundStyle: true, // 배경 스타일을 적용할지 여부
+                    backgroundColor: 'rgba(1,1,1,1)' // 배경 색상 (rgba 형식)
+                });
+            });
+        </script> -->
+
 </body>
 
 </html>

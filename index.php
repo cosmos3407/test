@@ -116,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, user-scalable=1" />
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
-    <link rel="stylesheet" type="text/css" href="css/popup.css">
     <script type="text/javascript" src="https://static.criteo.net/js/ld/publishertag.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>
@@ -131,11 +130,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   ga('send', 'pageview');
 */
     </script>
+    <!-- 추가부분 -->
+    <link rel="stylesheet" type="text/css" href="css/popup.css?after">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="/js/common.js"></script>
+    <!-- 추가부분 -->
 </head>
 
 <body style="background-color: #a4dbf7;">
-    <!--<script type="application/javascript" data-idzone="4646546" data-ad_frequency_count="1" data-ad_frequency_period="720" data-type="mobile" data-browser_settings="1" data-ad_trigger_method="3" src="https://a.realsrv.com/fp-interstitial.js"></script>-->
-    <script type="application/javascript" src="https://a.realsrv.com-slider.js"></script>
+
+
     <script type="application/javascript">
         var adConfig = {
             "idzone": 4646550,
@@ -147,10 +151,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         };
         //ExoVideoSlider.init(adConfig);
     </script>
+
+    <div class="header">
+        <!-- 하단 배너 -->
+        <div class="banner">
+            <a href="#">
+                <img src="img/test.jpg">
+            </a>
+        </div>
+    </div>
+
+
+    <div class="bottom_right_banner">
+        <p class="bottom_right_banner_close">x</p>
+        <img src="img/test.jpg">
+    </div>
+
     <header>
-        <!--
-<script type="text/javascript" src="https://www.twidouga.net/ko/js/inste.js"></script>
-<script type="text/javascript" src="https://js.waqool.com/t/029/856/a90029856.js"></script>-->
         <div id="headertop">
             <div style="display:inline-flex">
                 <div id="nav">
@@ -180,16 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         </script>
         <br>
-        <!--
-<div style="display:inline-block" style="display:none;">
-<a href="https://www.nurumayu.net/ko/instagazou/geturl.php" target="_blank"><img src="img/link_instagazou_ko.png" border="0" /></a>
-<a href="https://www.nurumayu.net/ko/instagazou/getdouga.php" target="_blank"><img src="img/link_instadouga_ko.png" border="0" /></a>
-</div>
-<br>
-<div style="display:inline-block" style="display:none;">
-<a href="https://www.nurumayu.net/ko/twidouga/gettwi.php" target="_blank"><img src="img/link_twidouga_ko.png" border="0" /></a>
-<a href="https://www.nurumayu.net/ko/facedouga/getbook.php" target="_blank"><img src="img/link_facedouga_ko.png" border="0" /></a>
-</div>-->
+
         <br>
         <div class="pcnone" style="display:none;">
             <script async type="application/javascript" src="https://a.realsrv.com/ad-provider.js"></script>
@@ -209,7 +217,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 });
             </script>
         </div>
+        <div style="margin-bottom: 30px;">
+            <img style="width: 300px;" src="img/test.jpg">
+        </div>
+        
         <form name="form" method="post" action="index.php" enctype="multipart/form-data">
+
             <input type="text" name="para" id="para" size="33" value placeholder="URL을 붙여 넣기" />
             <blockquote class="twitter-tweet"><a href="https://twitter.com/twiiter_save/status/1720036664431738953?s=46&t=iSCnMPTTaFRtiKg4SUFFCg"></a></blockquote>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -257,7 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div>
             <!-- <iframe style="display:none;" src="https://27934.agatarainpro.com/v2/a/na/if/195111" frameborder="0" scrolling="no" width="300" height="250"></iframe> -->
             <!-- 전면 광고  -->
-            <img src="img/test.jpg">
+
         </div>
         <br>
         <div class="pcnone">
@@ -348,53 +361,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="jquery.bxslider/jquery.bxslider.js"></script>
     <script src="js/autoloading.js"></script>
     <script src="js/jquery.overlayad.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
+            console.log("te");
             let url;
             // 팝업 열기
             $(".popupOpen").on("click", function() {
-                url = $(this).attr('class').split(' ')[0];
-                console.log(url)
-                if ($('.layer_bg').css('display') == 'none') {
-                    $('.layer_bg').show();
+                url = $(this).attr("class").split(" ")[0];
+                console.log(url);
+                if ($(".layer_bg").css("display") == "none") {
+                    $(".layer_bg").show();
 
-                    $('html, body').css({
-                        'overflow': 'hidden',
-                        'height': '100%'
+                    $("html, body").css({
+                        overflow: "hidden",
+                        height: "100%",
                     });
                 }
-
-            })
+            });
 
             // 팝업 닫기
             $(".popup_close").on("click", function() {
                 console.log("popup_close");
-                if ($('.layer_bg').css('display') != 'none') {
-                    $('.layer_bg').hide();
+                if ($(".layer_bg").css("display") != "none") {
+                    $(".layer_bg").hide();
                     // $('body').off('scroll touchmove mousewheel');
                 }
-                $('html, body').css({
-                    'overflow': 'scroll'
+                $("html, body").css({
+                    overflow: "scroll",
                 });
 
                 switch (url) {
                     case "save":
-                        location.href="index.php"
+                        location.href = "index.php";
                         break;
                     case "ranking":
-                        location.href="ranking_t.php?index=0"
+                        location.href = "ranking_t.php?index=0";
                         break;
                     case "live":
-                        location.href="realtime_t.php"
+                        location.href = "realtime_t.php";
                         break;
                     default:
                         break;
                 }
-            })
+            });
 
-        })
+
+            // $(".adver").hide(); //우선 배너는 안보이게끔 숨긴다.
+            $(".header .down").on("click", function() {
+                console.log("te");
+                // 버튼을 클릭했을 때
+                $(".banner").slideToggle(300); //토글작동!!
+                return false;
+            });
+
+            $(".bottom_right_banner_close").on("click", function() {
+                // 버튼을 클릭했을 때
+                $(".bottom_right_banner").slideToggle(600); //토글작동!!
+                return false;
+            });
+        });
     </script>
+
 </body>
 
 </html>

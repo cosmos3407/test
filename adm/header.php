@@ -1,12 +1,14 @@
 <?php
 include_once('../common.php');
+
+
 ?>
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -24,28 +26,63 @@ include_once('../common.php');
             max-width: 960px;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            console.log("hello");
+        })
+
+        function menuMove(menu) {
+            console.log(menu)
+            $.ajax({
+                url: "controller.php",
+                type: "post",
+                data: {
+                    menu: menu
+                },
+                success: function(result) {
+                    console.log(result);
+                    console.log(this);
+                    switch (result) {
+                        case "save":
+                            location.href = "mgmt_save_form.php";
+                            break;
+                        case "ranking":
+                            location.href = "mgmt_ranking_form.php";
+                            break;
+                        case "realtime":
+                            location.href = "mgmt_realtime_form.php";
+                            break;
+                        default:
+                            break;
+                    }
+                    $(this).addClass('active');
+                }
+            })
+        }
+    </script>
 </head>
+
 
 <body class="bg-body-tertiary">
     <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Always expand</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="container-fluid">
 
-                <div class="collapse navbar-collapse" id="navbarsExample02">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                    </ul>
-                    <form role="search">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                    </form>
-                </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="save nav-link" href='javascript:menuMove("save");'>저장</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="ranking nav-link" href='javascript:menuMove("ranking");'>랭킹</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="live nav-link" href='javascript:menuMove("realtime");'>실시간</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
