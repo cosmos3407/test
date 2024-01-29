@@ -64,7 +64,7 @@
         <!-- 상단 배너 -->
         <div class="banner">
             <a href="#">
-                <img src="img/test.jpg">
+                <!-- <img src="img/test.jpg"> -->
             </a>
         </div>
     </div>
@@ -74,7 +74,7 @@
         <div class="popup">
             <p class="popup_close">x</p>
             <a href="#">
-                <img src="img/test.jpg">
+                <!-- <img src="img/test.jpg"> -->
             </a>
         </div>
     </div>

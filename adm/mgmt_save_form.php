@@ -1,72 +1,100 @@
 <?php
+include_once('../common.php');
+require_once "../connection.php";
+$db_obj = new connection;
 include_once('header.php');
+
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1");
+    $top = $top_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $mid_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1");
+    $mid = $mid_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $popup_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1");
+    $popup = $popup_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $bottom_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1");
+    $bottom = $bottom_data[0];
+}
+
+$str = "비어있음"
 ?>
+
 <div class="container">
     <main>
         <div class="py-5 text-center">
             <h2>저장 섹션 광고 수정</h2>
-            <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+            <p class="lead"></p>
         </div>
 
         <div class="row g-5">
             <div class="col-md-5 col-lg-12">
-
-                <form class="needs-validation" novalidate>
+                <form name="uploadForm" id="uploadForm" method="post" action="mgmt_save_form_update.php" enctype="multipart/form-data">
+                <!-- onsubmit="return formSubmit(this);" -->
+                <input type="hidden" name="APND_FILE_CATE" value="1">
                     <h4 class="mb-3">상단배너</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">파일</label>
-                            <input type="file" class="form-control" id="firstName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid 파일 is required.
-                            </div>
+                            <label for="firstName" class="form-label"><?= !empty($top['APND_FILE_ORGN_NM']) ? $top['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="top_file" placeholder="" value="" >
+                            
                         </div>
 
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">링크</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid 링크 is required.
-                            </div>
+                            <label for="link" class="form-label">링크</label>
+                            <label for="link" class="form-label"><?= !empty($top['APND_FILE_LiNK']) ? $top['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="top_link" placeholder="" value="" >
                         </div>
                     </div>
                     <h4 class="mb-3">중간 광고</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">파일</label>
-                            <input type="file" class="form-control" id="firstName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid 파일 is required.
-                            </div>
+                            <label for="firstName" class="form-label"><?= !empty($mid['APND_FILE_ORGN_NM']) ? $mid['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="mid_file" placeholder="" value="" >
                         </div>
 
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">링크</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid 링크 is required.
-                            </div>
+                            <label for="link" class="form-label">링크</label>
+                            <label for="link" class="form-label"><?= !empty($mid['APND_FILE_LiNK']) ? $mid['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="mid_link" placeholder="" value="" >
+                        </div>
+                    </div>
+                    <h4 class="mb-3">하단 광고</h4>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">파일</label>
+                            <label for="firstName" class="form-label"><?= !empty($bottom['APND_FILE_ORGN_NM']) ? $bottom['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="bottom_file" placeholder="" value="" >
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <label for="link" class="form-label">링크</label>
+                            <label for="link" class="form-label"><?= !empty($bottom['APND_FILE_LiNK']) ? $bottom['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="bottom_link" placeholder="" value="" >
                         </div>
                     </div>
                     <h4 class="mb-3">팝업 광고</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">파일</label>
-                            <input type="file" class="form-control" id="firstName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
+                            <label for="firstName" class="form-label"><?= !empty($popup['APND_FILE_ORGN_NM']) ? $popup['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="popup_file" placeholder="" value="" >
                         </div>
 
 
                         <div class="col-sm-6">
-                            <label for="lastName" class="form-label">링크</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                            <div class="invalid-feedback">
-                                Valid 링크 is required.
-                            </div>
+                            <label for="link" class="form-label">링크</label>
+                            <label for="link" class="form-label"><?= !empty($popup['APND_FILE_LiNK']) ? $popup['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="popup_link" placeholder="" value="" >
                         </div>
                     </div>
             </div>
@@ -88,5 +116,37 @@ include_once('header.php');
 </div>
 
 </body>
+<script type="text/javascript">
+    function formSubmit(f) {
+        var extArray = new Array('hwp', 'xls', 'doc', 'xlsx', 'docx', 'pdf', 'jpg', 'gif', 'png', 'txt', 'ppt', 'pptx');
+        var path = document.getElementById("upfile").value;
+        if (path == "") {
+            alert("파일을 선택해 주세요.");
+            return false;
+        }
+
+        var pos = path.indexOf(".");
+        if (pos < 0) {
+            alert("확장자가 없는파일 입니다.");
+            return false;
+        }
+
+        var ext = path.slice(path.indexOf(".") + 1).toLowerCase();
+        var checkExt = false;
+        for (var i = 0; i < extArray.length; i++) {
+            if (ext == extArray[i]) {
+                checkExt = true;
+                break;
+            }
+        }
+
+        if (checkExt == false) {
+            alert("업로드 할 수 없는 파일 확장자 입니다.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 </html>

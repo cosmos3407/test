@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'Content-Type: application/json',
                 'Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAAIaqwEAAAAAhK27WY6QmX3UozQznXzdp3PxFtU%3DRzAXlXymRKZH0GmtQTK2q9kmdaU2ZJxZgARNzKbyeYmVTkHWvM'
             ),
-        ));
+        )
+        );
 
         $response = curl_exec($curl);
 
@@ -88,6 +89,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+// 추가
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1");
+    $top = $top_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $mid_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1");
+    $mid = $mid_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $popup_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1");
+    $popup = $popup_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $bottom_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1");
+    $bottom = $bottom_data[0];
+}
+$dir = "/uploads/";
 
 //print_r($object);
 //print_r($object->includes->media[0]->variants[1]);
@@ -132,7 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
     <!-- 추가부분 -->
     <link rel="stylesheet" type="text/css" href="css/popup.css?after">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/common.js"></script>
     <!-- 추가부분 -->
 </head>
@@ -152,19 +173,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //ExoVideoSlider.init(adConfig);
     </script>
 
+    <?php if(!empty($bottom)) {?>
     <div class="header">
         <!-- 하단 배너 -->
         <div class="banner">
-            <a href="#">
-                <img src="img/test.jpg">
+            <a href="<?= $bottom['APND_FILE_LiNK_YN'] == 'Y' ? $bottom['APND_FILE_LiNK'] : '#'?>" target="_blank">
+                <!-- <img src="<?= $dir . $bottom['APND_FILE_NM'] ?>"> -->
             </a>
         </div>
     </div>
+    <?php } ?>
+    
+    <?php if(!empty($popup)) {?>
+    <!-- popup -->
+    <div class="layer_bg">
+        <div class="popup">
+            <p class="popup_close">x</p>
+            <!-- <img src="img/test.jpg"> -->
+            <a href="<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '#'?>" target="_blank">
+            <!-- <img src="<?= $dir . $popup['APND_FILE_NM'] ?>"> -->
+            </a>
+        </div>
+    </div>
+    <?php } ?>
 
 
     <div class="bottom_right_banner">
         <p class="bottom_right_banner_close">x</p>
-        <img src="img/test.jpg">
+        <!-- <img src="img/test.jpg"> -->
     </div>
 
     <header>
@@ -180,7 +216,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
         <div id="headerlogo">
-            <a href="https://twi-save.com/index.php"><img src="img/twidouga.png" alt="twidouga" width="320" class="photo"></a>
+            <a href="https://twi-save.com/index.php"><img src="img/twidouga.png" alt="twidouga" width="320"
+                    class="photo"></a>
         </div>
     </header>
     <div id="wrap">
@@ -218,13 +255,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </script>
         </div>
         <div style="margin-bottom: 30px;">
-            <img style="width: 300px;" src="img/test.jpg">
+            <!-- <img style="width: 300px;" src="img/test.jpg"> -->
         </div>
-        
+
         <form name="form" method="post" action="index.php" enctype="multipart/form-data">
 
             <input type="text" name="para" id="para" size="33" value placeholder="URL을 붙여 넣기" />
-            <blockquote class="twitter-tweet"><a href="https://twitter.com/twiiter_save/status/1720036664431738953?s=46&t=iSCnMPTTaFRtiKg4SUFFCg"></a></blockquote>
+            <blockquote class="twitter-tweet"><a
+                    href="https://twitter.com/twiiter_save/status/1720036664431738953?s=46&t=iSCnMPTTaFRtiKg4SUFFCg"></a>
+            </blockquote>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <br>
             <?php
@@ -258,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ?>
                     </div>
                 </div>
-            <?php
+                <?php
             } ?>
             <br>
             <div style="display:inline-flex">
@@ -282,10 +321,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="https://www.twitter.com/" target="_blank"><img src="img/tw_botton.png"></a>
         </div>
         <ul class="share-buttons">
-            <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php&t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img src="img/Facebook.png"></a></li>
-            <li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php&text=:%20https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img src="img/Twitter.png"></a></li>
-            <li><a href="https://plus.google.com/share?url=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img src="img/Google+.png"></a></li>
-            <li><a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php&description=" target="_blank" title="Pin it" onclick="window.open('https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(document.URL) + '&description=' +  encodeURIComponent(document.title)); return false;"><img src="img/Pinterest.png"></a></li>
+            <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php&t="
+                    title="Share on Facebook" target="_blank"
+                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img
+                        src="img/Facebook.png"></a></li>
+            <li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php&text=:%20https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php"
+                    target="_blank" title="Tweet"
+                    onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img
+                        src="img/Twitter.png"></a></li>
+            <li><a href="https://plus.google.com/share?url=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php"
+                    target="_blank" title="Share on Google+"
+                    onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><img
+                        src="img/Google+.png"></a></li>
+            <li><a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.nurumayu.net%2Fko%2Ftwidouga%2Fgettwi.php&description="
+                    target="_blank" title="Pin it"
+                    onclick="window.open('https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(document.URL) + '&description=' +  encodeURIComponent(document.title)); return false;"><img
+                        src="img/Pinterest.png"></a></li>
         </ul>
         <br>
         <div id="box">
@@ -304,7 +355,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li>PC를 이용하시는 분께서는, 동영상 혹은 URL을 클릭하여 저장하실 수 있습니다.</li>
             </ol>
             <br>
-            <center><a href="img/twiurl.png" target="_blank"><img src="img/twiurl.png" alt="howto" width="90%"></a></center>
+            <center><a href="img/twiurl.png" target="_blank"><img src="img/twiurl.png" alt="howto" width="90%"></a>
+            </center>
             <br>
             【아이폰】
             <ul>
@@ -314,10 +366,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <br><br>
                     【DropBox 다운로드】<br>
                     <div style="display:inline-flex">
-                        <a href="https://itunes.apple.com/ko/app/dropbox/id327630330?mt=8" target="_blanc"> <img src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
-                        <a href="https://play.google.com/store/apps/details?id=com.dropbox.android" target="_blanc"><img src="img/btn-google.png" style="max-width:100px;"></a>
+                        <a href="https://itunes.apple.com/ko/app/dropbox/id327630330?mt=8" target="_blanc"> <img
+                                src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
+                        <a href="https://play.google.com/store/apps/details?id=com.dropbox.android" target="_blanc"><img
+                                src="img/btn-google.png" style="max-width:100px;"></a>
             </ul>
-            <center><a href="img/dougaip.png" target="_blank"><img src="img/dougaip.png" alt="howto" width="60%"></a></center>
+            <center><a href="img/dougaip.png" target="_blank"><img src="img/dougaip.png" alt="howto" width="60%"></a>
+            </center>
             <br>
             【안드로이드】
             <ul>
@@ -325,8 +380,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li>「Clip」메뉴에서 복사하신 URL을 붙여놓기 하시면 됩니다.<br><br>
                     【Clipbox 다운로드】<br>
                     <div style="display:inline-flex">
-                        <a href="https://itunes.apple.com/ko/app/clipbox/id437758919?mt=8&at=1001laxu" target="_blanc"> <img src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
-                        <a href="https://play.google.com/store/apps/details?id=jp.co.granks.clipbox4Gp " target="_blanc"><img src="img/btn-google.png" style="max-width:100px;"></a>
+                        <a href="https://itunes.apple.com/ko/app/clipbox/id437758919?mt=8&at=1001laxu" target="_blanc">
+                            <img src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
+                        <a href="https://play.google.com/store/apps/details?id=jp.co.granks.clipbox4Gp "
+                            target="_blanc"><img src="img/btn-google.png" style="max-width:100px;"></a>
                     </div>
                 </li>
             </ul>
@@ -345,28 +402,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </footer>
 
-    <!-- popup -->
-    <div class="layer_bg">
-
-        <div class="popup">
-            <p class="popup_close">x</p>
-            <h2>
-                <img src="img/test.jpg">
-            </h2>
-        </div>
-    </div>
-
-
     <link rel="stylesheet" type="text/css" href="jquery.bxslider/jquery.bxslider.css">
     <script src="jquery.bxslider/jquery.bxslider.js"></script>
     <script src="js/autoloading.js"></script>
     <script src="js/jquery.overlayad.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             console.log("te");
             let url;
             // 팝업 열기
-            $(".popupOpen").on("click", function() {
+            $(".popupOpen").on("click", function () {
                 url = $(this).attr("class").split(" ")[0];
                 console.log(url);
                 if ($(".layer_bg").css("display") == "none") {
@@ -380,7 +425,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
 
             // 팝업 닫기
-            $(".popup_close").on("click", function() {
+            $(".popup_close").on("click", function () {
                 console.log("popup_close");
                 if ($(".layer_bg").css("display") != "none") {
                     $(".layer_bg").hide();
@@ -407,14 +452,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             // $(".adver").hide(); //우선 배너는 안보이게끔 숨긴다.
-            $(".header .down").on("click", function() {
+            $(".header .down").on("click", function () {
                 console.log("te");
                 // 버튼을 클릭했을 때
                 $(".banner").slideToggle(300); //토글작동!!
                 return false;
             });
 
-            $(".bottom_right_banner_close").on("click", function() {
+            $(".bottom_right_banner_close").on("click", function () {
                 // 버튼을 클릭했을 때
                 $(".bottom_right_banner").slideToggle(600); //토글작동!!
                 return false;

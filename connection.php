@@ -113,7 +113,6 @@ class connection
 			}
 			
 			$qry = "SELECT * FROM $table".$whereSQL;
-			
 			$result = $this->conn->query($qry);
 			
 			$data = array();
@@ -179,7 +178,6 @@ class connection
 			}
 			
 			$qry = "SELECT $fields FROM $table".$whereSQL;
-			
 			$result = $this->conn->query($qry);
 			
 			$data = array();
@@ -284,7 +282,6 @@ class connection
 
 			// run and return the query result resource
 				//echo $sql; exit;
-			
 			if($this->conn->query($sql)==TRUE)
 			{
 				return  mysqli_insert_id($this->conn);
@@ -419,10 +416,15 @@ class connection
 			date_default_timezone_set('America/Chicago');
 			return date("Y-m-d H:i:s");
 		}
+        
 		
 		public function custom_now_date($string){
 			date_default_timezone_set('America/Chicago');
 			return date($string);
 		}
+        // public function korea_now_date(){
+		// 	date_default_timezone_set('Asia/Seoul');
+		// 	return date("Y-m-d H:i:s");
+		// }
 }
 ?>
