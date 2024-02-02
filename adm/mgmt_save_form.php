@@ -4,6 +4,10 @@ require_once "../connection.php";
 $db_obj = new connection;
 include_once('header.php');
 
+if($_SESSION['mb_level'] != 10){
+    alert('잘못된 접근입니다.','index.php');
+}
+
 if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1"))) {
     $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1");
     $top = $top_data[0];
@@ -21,7 +25,7 @@ if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bot
     $bottom = $bottom_data[0];
 }
 
-$str = "비어있음"
+$str = "비어있음";
 ?>
 
 <div class="container">
@@ -49,7 +53,7 @@ $str = "비어있음"
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
                             <label for="link" class="form-label"><?= !empty($top['APND_FILE_LiNK']) ? $top['APND_FILE_LiNK'] : $str ?></label>
-                            <input type="text" class="form-control" name="top_link" placeholder="" value="" >
+                            <input type="text" class="form-control" name="top_link" placeholder="" value="<?= !empty($top['APND_FILE_LiNK']) ? $top['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
                     <h4 class="mb-3">중간 광고</h4>
@@ -64,7 +68,7 @@ $str = "비어있음"
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
                             <label for="link" class="form-label"><?= !empty($mid['APND_FILE_LiNK']) ? $mid['APND_FILE_LiNK'] : $str ?></label>
-                            <input type="text" class="form-control" name="mid_link" placeholder="" value="" >
+                            <input type="text" class="form-control" name="mid_link" placeholder="" value="<?= !empty($mid['APND_FILE_LiNK']) ? $mid['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
                     <h4 class="mb-3">하단 광고</h4>
@@ -79,7 +83,7 @@ $str = "비어있음"
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
                             <label for="link" class="form-label"><?= !empty($bottom['APND_FILE_LiNK']) ? $bottom['APND_FILE_LiNK'] : $str ?></label>
-                            <input type="text" class="form-control" name="bottom_link" placeholder="" value="" >
+                            <input type="text" class="form-control" name="bottom_link" placeholder="" value="<?= !empty($bottom['APND_FILE_LiNK']) ? $bottom['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
                     <h4 class="mb-3">팝업 광고</h4>
@@ -94,7 +98,7 @@ $str = "비어있음"
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
                             <label for="link" class="form-label"><?= !empty($popup['APND_FILE_LiNK']) ? $popup['APND_FILE_LiNK'] : $str ?></label>
-                            <input type="text" class="form-control" name="popup_link" placeholder="" value="" >
+                            <input type="text" class="form-control" name="popup_link" placeholder="" value="<?= !empty($popup['APND_FILE_LiNK']) ? $popup['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
             </div>

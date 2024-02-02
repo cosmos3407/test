@@ -1,6 +1,33 @@
 <?php
+include_once('../common.php');
+require_once "../connection.php";
+$db_obj = new connection;
 include_once('header.php');
+
+if($_SESSION['mb_level'] != 10){
+    alert('잘못된 접근입니다.','index.php');
+}
+
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 3 LIMIT 1");
+    $top = $top_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $mid_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 3 LIMIT 1");
+    $mid = $mid_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $popup_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 3 LIMIT 1");
+    $popup = $popup_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $bottom_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 3 LIMIT 1");
+    $bottom = $bottom_data[0];
+}
+
+$str = "비어있음";
 ?>
+
 <div class="container">
     <main>
         <div class="py-5 text-center">
@@ -10,46 +37,68 @@ include_once('header.php');
 
         <div class="row g-5">
             <div class="col-md-5 col-lg-12">
-                <form name="uploadForm" id="uploadForm" method="post" action="mgmt_save_form_update.php" enctype="multipart/form-data">
+                <form name="uploadForm" id="uploadForm" method="post" action="mgmt_realtime_form_update.php" enctype="multipart/form-data">
                 <!-- onsubmit="return formSubmit(this);" -->
                 <input type="hidden" name="APND_FILE_CATE" value="3">
                     <h4 class="mb-3">상단배너</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">파일</label>
-                            <input type="file" class="form-control" name="top_upfile" placeholder="" value="" required>
+                            <label for="firstName" class="form-label"><?= !empty($top['APND_FILE_ORGN_NM']) ? $top['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="top_file" placeholder="" value="" >
+                            
                         </div>
 
 
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
-                            <input type="text" class="form-control" name="top_link" placeholder="" value="" >
+                            <label for="link" class="form-label"><?= !empty($top['APND_FILE_LiNK']) ? $top['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="top_link" placeholder="" value="<?= !empty($top['APND_FILE_LiNK']) ? $top['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
-                    <h4 class="mb-3">중간 광고</h4>
+                    <h4 class="mb-3">5번째 광고</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">파일</label>
-                            <input type="file" class="form-control" name="mid_upfile" placeholder="" value="" required>
+                            <label for="firstName" class="form-label"><?= !empty($mid['APND_FILE_ORGN_NM']) ? $mid['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="mid_file" placeholder="" value="" >
                         </div>
 
 
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
-                            <input type="text" class="form-control" name="mid_link" placeholder="" value="" >
+                            <label for="link" class="form-label"><?= !empty($mid['APND_FILE_LiNK']) ? $mid['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="mid_link" placeholder="" value="<?= !empty($mid['APND_FILE_LiNK']) ? $mid['APND_FILE_LiNK'] : "" ?>" >
+                        </div>
+                    </div>
+                    <h4 class="mb-3">10번째 광고</h4>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">파일</label>
+                            <label for="firstName" class="form-label"><?= !empty($bottom['APND_FILE_ORGN_NM']) ? $bottom['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="bottom_file" placeholder="" value="" >
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <label for="link" class="form-label">링크</label>
+                            <label for="link" class="form-label"><?= !empty($bottom['APND_FILE_LiNK']) ? $bottom['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="bottom_link" placeholder="" value="<?= !empty($bottom['APND_FILE_LiNK']) ? $bottom['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
                     <h4 class="mb-3">팝업 광고</h4>
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="firstName" class="form-label">파일</label>
-                            <input type="file" class="form-control" name="popup_upfile" placeholder="" value="" required>
+                            <label for="firstName" class="form-label"><?= !empty($popup['APND_FILE_ORGN_NM']) ? $popup['APND_FILE_ORGN_NM'] : $str ?></label>
+                            <input type="file" class="form-control" name="popup_file" placeholder="" value="" >
                         </div>
 
 
                         <div class="col-sm-6">
                             <label for="link" class="form-label">링크</label>
-                            <input type="text" class="form-control" name="popup_link" placeholder="" value="" >
+                            <label for="link" class="form-label"><?= !empty($popup['APND_FILE_LiNK']) ? $popup['APND_FILE_LiNK'] : $str ?></label>
+                            <input type="text" class="form-control" name="popup_link" placeholder="" value="<?= !empty($popup['APND_FILE_LiNK']) ? $popup['APND_FILE_LiNK'] : "" ?>" >
                         </div>
                     </div>
             </div>

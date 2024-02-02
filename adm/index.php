@@ -30,22 +30,30 @@ include_once('../common.php');
 
   <main class="form-signin w-100 m-auto">
     <form method="post" action="controller.php">
+      <input type="hidden" value="login" name="login">
       <h1 class="h3 mb-3 fw-normal">어드민 페이지</h1>
-
+    
       <div class="form-floating">
         <label for="floatingInput">ID</label>
-        <input type="" class="form-control" id="floatingInput" placeholder="id">
+        <input type="" name="mb_id" class="form-control" id="floatingInput" placeholder="id">
 
       </div>
       <div class="form-floating">
         <label for="floatingPassword">Password</label>
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" name="mb_password" class="form-control" id="floatingPassword" placeholder="Password">
       </div>
 
       <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <input type="button" class="btn btn-primary w-100 py-2 mt-3" onclick="logout()" value="logout">
     </form>
   </main>
 
 </body>
+<script>
+    function logout() {
+        // window.location.href를 사용하여 다른 사이트로 이동
+        window.location.href = 'controller.php/logout?logout=1';
+    }
+</script>
 
 </html>

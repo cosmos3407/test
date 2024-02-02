@@ -1,12 +1,16 @@
 <?php
+
 // 오류 표시 설정 (개발 중에만 사용, 실제 서버에는 사용하지 않는 것이 좋음)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+session_start();
+
 define('CSS', '/css');
 define('JS', '/js');
+define('CODE', 'jcw');
 // 현재 서버 주소 
-$currentSiteURL = 'http';
+$currentSiteURL = 'https';
 $currentSiteURL .= '://' . $_SERVER['HTTP_HOST'];
 
 // 현재 서버 주소 URL 정의

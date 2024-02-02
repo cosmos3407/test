@@ -181,3 +181,7 @@ input,textarea,select {
         display: none
     }
 }
+
+.w100{
+    width: 100%;
+}

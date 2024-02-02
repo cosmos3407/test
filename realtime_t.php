@@ -1,3 +1,29 @@
+<?php
+require "connection.php";
+
+$db_obj = new connection;
+
+// 추가
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 3 LIMIT 1");
+    $top = $top_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $mid_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 3 LIMIT 1");
+    $mid = $mid_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $popup_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 3 LIMIT 1");
+    $popup = $popup_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 3 LIMIT 1"))) {
+    $bottom_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 3 LIMIT 1");
+    $bottom = $bottom_data[0];
+}
+$dir = "/uploads/";
+
+?>
+
 <html lang="ko">
 
 <head>
@@ -31,7 +57,7 @@
     <!-- 추가부분 -->
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="/js/common.js"></script>
+    <!-- <script src="/js/common.js"></script> -->
     <!-- 추가부분 -->
 </head>
 
@@ -79,59 +105,48 @@
 
         </div>
 
-        <!-- popup -->
-        <div class="layer_bg">
-            <div class="popup">
-                <p class="popup_close">x</p>
-                <a href="#">
-                    <img src="img/test.jpg">
-                </a>
+        <?php if (!empty($popup)) { ?>
+            <!-- popup -->
+            <div class="layer_bg" style="display:none">
+                <div class="popup" style="position:fixed">
+                    <a href="<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '#' ?>" <?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? 'target="_blank"' : '' ?>>
+                        <p class="popup_close">x</p>
+                        <!-- <img src="img/test.jpg"> -->
+                        <img class="w100" style="width:350px;" src="<?= $dir . $popup['APND_FILE_NM'] ?>">
+                    </a>
+                </div>
             </div>
-        </div>
+        <?php } ?>
+
         <!-- popup2 -->
-        <div class="realtime_layer_bg" style="display:block">
-            <div class="realtime_popup" style="position:fixed">
-                <p class="realtime_popup_close">x</p>
-                <a href="#">
-                    <img src="img/test.jpg">
-                </a>
+        <?php if (!empty($popup)) { ?>
+            <div class="realtime_layer_bg" style="display:none;">
+                <div class="realtime_popup" style="position:fixed; display:none;">
+                    <a href="<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '#' ?>" target="_blank">
+                        <p class="realtime_popup_close">x</p>
+                        <!-- <img src="img/test.jpg"> -->
+                        <img class="w100" style="width:350px;" src="<?= $dir . $popup['APND_FILE_NM'] ?>">
+                    </a>
+                </div>
             </div>
-        </div>
+        <?php } ?>
+
+
+        <?php if (!empty($bottom)) { ?>
+            <div class="header">
+                <!-- 하단배너 배너 -->
+                <div class="banner">
+                    <a href="<?= $bottom['APND_FILE_LiNK_YN'] == 'Y' ? $bottom['APND_FILE_LiNK'] : '#' ?>" target="_blank">
+                        <img src="<?= $dir . $bottom['APND_FILE_NM'] ?>">
+                    </a>
+                </div>
+            </div>
+        <?php } ?>
 
 
         <br>
         <div id="container" style="display:inline-block">
-
-            <script>
-                if ($(".realtime_layer_bg").css("display") == "none") {
-                    $(".realtime_layer_bg").show();
-                    $(".realtime_layer_bg").show();
-                    $("html, body").css({
-                        overflow: "hidden",
-                        height: "100%",
-                    });
-
-                }
-
-                $(".realtime_popup_close").on("click", function() {
-                    console.log("popup_close");
-                    if ($(".realtime_layer_bg").css("display") != "none") {
-                        $(".realtime_layer_bg").hide();
-                        // $('body').off('scroll touchmove mousewheel');
-                    }
-                    $("html, body").css({
-                        overflow: "scroll",
-                    });
-                });
-                var targetUrl = "https://s.click.aliexpress.com/e/_DlAyOmD";
-                window.open(targetUrl, "_blank");
-            </script>
             <?php
-            require "connection.php";
-
-            $db_obj = new connection;
-
-
             $title = "";
             $video_link = "";
             $preview_image_url = "";
@@ -169,33 +184,30 @@
                 echo "<a href='" . $item["twitter_link"] . "' target='_blank'><img src='img/twil.png'/></a>";
                 echo "</div></div>";
                 if ($i == ($count * ($page - 1) + 4)) {
+                    $tmp = $top['APND_FILE_LiNK_YN'] == 'Y' ? $top['APND_FILE_LiNK'] : '#';
+
                     echo "<div class='item item_w180'>";
-                    echo "<img src='/img/test.jpg'>";
+                    echo '<a href="' . $tmp . '" target="_blank">';
+                    echo    '<img style=:"width:100%;" src="' . $dir . $top['APND_FILE_NM'] . '">';
+                    echo '</a>';
                     echo "</div>";
                 }
                 if ($i == ($count * ($page - 1) + 9)) {
+                    $tmp = $mid['APND_FILE_LiNK_YN'] == 'Y' ? $mid['APND_FILE_LiNK'] : '#';
+
                     echo "<div class='item item_w180'>";
-                    echo "<img src='/img/test.jpg'>";
+                    echo '<a href="' . $tmp . '" target="_blank">';
+                    echo    '<img style=:"width:100%;" src="' . $dir . $mid['APND_FILE_NM'] . '">';
+                    echo '</a>';
                     echo "</div>";
                 }
-                if ($page == 2) {
-                    echo "<script>
-                    console.log(1)
-                    </script>";
-                }
             }
-
             ?>
-
-
         </div>
 
 
         <div class="navigation">
-            <!-- href='javascript:viewEquipInsp(" + list['inspNo'] + ");' -->
-            <!-- <a class="nextlink" href="?page=<?php echo ($page + 1); ?>">다음 페이지</a> -->
             <a class="nextlink" href="?page=<?php echo ($page + 1); ?>">다음 페이지</a>
-            <!-- <a class="nextlink" href="javascript:nextPage(<?= $page ?>)">다음 페이지</a> -->
         </div>
         <!--
 <div>
@@ -260,5 +272,66 @@
         </script> -->
 
 </body>
+<script>
+    $(document).ready(function() {
+        console.log("test");
+        let url;
+        let popup_link = "<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : 0 ?>";
+
+        if ($(".layer_bg").css("display") == "block") {
+            // $("html, body").css({
+            //     overflow: "hidden",
+            // });
+        }
+
+        // 팝업 열기
+        $(".popupOpen").on("click", function() {
+            url = $(this).attr("class").split(" ")[0];
+            console.log(url);
+            if ($(".layer_bg").css("display") == "none") {
+                $(".layer_bg").show();
+
+                $("html, body").css({
+                    overflow: "hidden",
+                });
+            }
+        });
+
+        // 팝업 닫기
+        $(".popup_close").on("click", function() {
+            console.log("popup_close");
+            if ($(".layer_bg").css("display") != "none") {
+                $(".layer_bg").hide();
+                // $('body').off('scroll touchmove mousewheel');
+                $("html, body").css({
+                    overflow: "scroll",
+                });
+            }
+
+            if (popup_link != "0" && popup_link != null) {
+                window.open(popup_link, "_blank");
+            }
+            switch (url) {
+                case "save":
+                    location.href = "index.php";
+                    break;
+                case "ranking":
+                    location.href = "ranking_t.php?index=0";
+                    break;
+                case "live":
+                    location.href = "realtime_t.php";
+                    break;
+                default:
+                    break;
+            }
+
+        });
+        $(".bottom_right_banner_close").on("click", function() {
+            // 버튼을 클릭했을 때
+            $(".bottom_right_banner").slideToggle(600); //토글작동!!
+            return false;
+        });
+    });
+</script>
 
 </html>

@@ -1,3 +1,29 @@
+<?php
+//include_once "common.php";
+
+require "connection.php";
+
+$db_obj = new connection;
+
+// 추가
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1");
+    $top = $top_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $mid_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1");
+    $mid = $mid_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $popup_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1");
+    $popup = $popup_data[0];
+}
+if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1"))) {
+    $bottom_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1");
+    $bottom = $bottom_data[0];
+}
+$dir = "/uploads/";
+?>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -35,7 +61,8 @@
     </script>
     <!-- 추가부분 -->
     <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="/js/common.js"></script>
     <!-- 추가부분 -->
 </head>
@@ -48,7 +75,7 @@
             <div style="display:inline-flex">
                 <div id="nav">
                     <ul>
-                    <li class="save popupOpen">저장</li>
+                        <li class="save popupOpen">저장</li>
                         <li class="ranking popupOpen" id="here" style="padding-top: 1px;"><b>랭킹</b></li>
                         <li class="live popupOpen">실시간</li>
                     </ul>
@@ -56,33 +83,45 @@
             </div>
         </div>
         <div id="headerlogo">
-            <a href="https://twi-save.com/ranking_t.php"><img src="img/twiranking.png" alt="twirank" weight="290" class="photo" style="margin-top: 6px;"></a>
+            <a href="https://twi-save.com/ranking_t.php"><img src="img/twiranking.png" alt="twirank" weight="290"
+                    class="photo" style="margin-top: 6px;"></a>
         </div>
     </header>
-    
-    <div class="header">
-        <!-- 상단 배너 -->
-        <div class="banner">
-            <a href="#">
-                <!-- <img src="img/test.jpg"> -->
-            </a>
+
+    <?php if (!empty($bottom)) { ?>
+        <div class="header">
+            <!-- 하단배너 배너 -->
+            <div class="banner" style="bottom: -8%;">>
+                <a href="<?= $bottom['APND_FILE_LiNK_YN'] == 'Y' ? $bottom['APND_FILE_LiNK'] : '#' ?>" target="_blank">
+                    <img src="<?= $dir . $bottom['APND_FILE_NM'] ?>">
+                </a>
+            </div>
         </div>
-    </div>
-    
-    <!-- popup -->
-    <div class="layer_bg">
-        <div class="popup">
-            <p class="popup_close">x</p>
-            <a href="#">
-                <!-- <img src="img/test.jpg"> -->
-            </a>
+    <?php } ?>
+
+    <?php if (!empty($popup)) { ?>
+        <!-- popup -->
+        <div class="layer_bg" style="display:none">
+            <div class="popup" style="position:fixed">
+                <p class="popup_close">x</p>
+                <a href="<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '#' ?>" target="_blank">
+                    <!-- <img src="img/test.jpg"> -->
+                    <img class="w100" style="width:350px;" src="<?= $dir . $popup['APND_FILE_NM'] ?>">
+                </a>
+            </div>
         </div>
-    </div>
+    <?php } ?>
 
     <div id="wrap">
         <h2 style="margin-top: 0px; margin-bottom: 0px;">트윗저장고 랭킹!</h2>
         <div style="margin-bottom: 10px;">
-            <img style="width: 300px;" src="img/test.jpg">
+            <?php if (!empty($top)) { ?>
+                <div style="margin-top: 30px;">
+                    <a href="<?= $top['APND_FILE_LiNK_YN'] == 'Y' ? $top['APND_FILE_LiNK'] : '#' ?>" target="_blank">
+                        <img style="width: 300;" src="<?= $dir . $top['APND_FILE_NM'] ?>">
+                    </a>
+                </div>
+            <?php } ?>
         </div>
         <form name="fm">
             <select name="s" onchange="sample()" style="display:none;font-size:12px;">
@@ -109,9 +148,9 @@
             </tr>
         </table>
         <?php
-        require "connection.php";
 
-        $db_obj = new connection;
+
+
 
         $title = "";
         $video_link = "";
@@ -127,7 +166,7 @@
             $current_date = date('Y-m-d');
             $timestamp = strtotime("-5 days");
             $before_date = date("Y-m-d", $timestamp);
-            $ph_where = "SELECT title, COUNT(title) as times, twitter_link, video_link, preview_image_url FROM tb_video where Date(create_date) BETWEEN '$before_date' AND '$current_date' GROUP BY title order by COUNT(title) desc";
+            $ph_where = "SELECT title, COUNT(title) as times, MAX(twitter_link) as twitter_link, MAX(video_link) as video_link, MAX(preview_image_url) as preview_image_url FROM tb_video where Date(create_date) BETWEEN '$before_date' AND '$current_date' GROUP BY title order by COUNT(title) desc";
             $user_detail = $db_obj->select_where($ph_where);
             $positioin = 0;
             if (count($user_detail) > 0) {
@@ -162,7 +201,7 @@
             $current_date = date('Y-m-d');
             $timestamp = strtotime("-30 days");
             $before_date = date("Y-m-d", $timestamp);
-            $ph_where = "SELECT title, COUNT(title) as times, twitter_link, video_link, preview_image_url FROM tb_video where Date(create_date) BETWEEN '$before_date' AND '$current_date' GROUP BY title order by COUNT(title) desc";
+            $ph_where = "SELECT title, COUNT(title) as times, MAX(twitter_link) as twitter_link, MAX(video_link) as video_link, MAX(preview_image_url) as preview_image_url FROM tb_video where Date(create_date) BETWEEN '$before_date' AND '$current_date' GROUP BY title order by COUNT(title) desc";
             $user_detail = $db_obj->select_where($ph_where);
             $positioin = 0;
             if (count($user_detail) > 0) {
@@ -248,5 +287,68 @@
 <script src="lazy.js"></script>
 <script src="js/autoloading.js"></script>-->
 </body>
+<script>
+    $(document).ready(function () {
+        console.log("test");
+        let url;
+        let popup_link = "<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '0' ?>";
+
+        if ($(".layer_bg").css("display") == "block") {
+            $("html, body").css({
+                overflow: "hidden",
+                height: "100%",
+            });
+        }
+
+        // 팝업 열기
+        $(".popupOpen").on("click", function () {
+            url = $(this).attr("class").split(" ")[0];
+            console.log(url);
+            if ($(".layer_bg").css("display") == "none") {
+                $(".layer_bg").show();
+
+                $("html, body").css({
+                    overflow: "hidden",
+                    height: "100%",
+                });
+            }
+        });
+
+        // 팝업 닫기
+        $(".popup_close").on("click", function () {
+            console.log("popup_close");
+            if ($(".layer_bg").css("display") != "none") {
+                $(".layer_bg").hide();
+                // $('body').off('scroll touchmove mousewheel');
+            }
+            $("html, body").css({
+                overflow: "scroll",
+            });
+            if (popup_link != "0" && popup_link != null) {
+                console.log(123);
+                window.open(popup_link, "_blank");
+            }
+            switch (url) {
+                case "save":
+                    location.href = "index.php";
+                    break;
+                case "ranking":
+                    location.href = "ranking_t.php?index=0";
+                    break;
+                case "live":
+                    location.href = "realtime_t.php";
+                    break;
+                default:
+                    break;
+            }
+
+        });
+        $(".bottom_right_banner_close").on("click", function () {
+            // 버튼을 클릭했을 때
+            $(".bottom_right_banner").slideToggle(600); //토글작동!!
+            return false;
+        });
+    });
+</script>
 
 </html>

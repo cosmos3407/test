@@ -108,7 +108,7 @@ if ($_POST['APND_FILE_CATE'] == 1) {
     //     uploadFile('popup_file', 'popup_link', 'popup');
     // }
 
-    //alert('요청성공', 'mgmt_save_form.php');
+    alert('요청성공', 'mgmt_save_form.php');
 }
 
 function uploadFile($filename, $linkName, $FILE_SNO)

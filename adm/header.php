@@ -37,6 +37,7 @@ include_once('../common.php');
                 url: "controller.php",
                 type: "post",
                 data: {
+                    category : "menuMove",
                     menu: menu
                 },
                 success: function(result) {

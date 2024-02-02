@@ -50,22 +50,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $curl = curl_init();
-        curl_setopt_array(
-            $curl,
-            array(
-                CURLOPT_URL => 'https://api.twitter.com/2/tweets/' . $tweet_id . '?expansions=attachments.media_keys&media.fields=variants,preview_image_url',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/json',
-                    'Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAHQSqwEAAAAAxV%2FQ%2FsBm1fwr5r%2Ff7JSaX33IaFo%3D2YAZ6dbtJLkv1urg5ZnMEyXfQ5q1q3vaz1hZD0eT6oVeSfr6AO'
-                ),
-            )
-        );
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.twitter.com/2/tweets/' . $tweet_id . '?expansions=attachments.media_keys&media.fields=variants,preview_image_url',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAAIaqwEAAAAAhK27WY6QmX3UozQznXzdp3PxFtU%3DRzAXlXymRKZH0GmtQTK2q9kmdaU2ZJxZgARNzKbyeYmVTkHWvM'
+            ),
+        ));
 
         $response = curl_exec($curl);
 
@@ -91,25 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-// 추가
-if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1"))) {
-    $top_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'top' and APND_FILE_CATE = 1 LIMIT 1");
-    $top = $top_data[0];
-}
-if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1"))) {
-    $mid_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'mid' and APND_FILE_CATE = 1 LIMIT 1");
-    $mid = $mid_data[0];
-}
-if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1"))) {
-    $popup_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'popup' and APND_FILE_CATE = 1 LIMIT 1");
-    $popup = $popup_data[0];
-}
-if (!empty($db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1"))) {
-    $bottom_data = $db_obj->select_where_with_param("APND_FILE_M", "APND_FILE_SNO = 'bottom' and APND_FILE_CATE = 1 LIMIT 1");
-    $bottom = $bottom_data[0];
-}
-$dir = "/uploads/";
 
 //print_r($object);
 //print_r($object->includes->media[0]->variants[1]);
@@ -152,16 +130,11 @@ $dir = "/uploads/";
   ga('send', 'pageview');
 */
     </script>
-    <!-- 추가부분 -->
-    <link rel="stylesheet" type="text/css" href="css/popup.css?after">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="/js/common.js"></script>
-    <!-- 추가부분 -->
 </head>
 
 <body style="background-color: #a4dbf7;">
-
-
+    <!--<script type="application/javascript" data-idzone="4646546" data-ad_frequency_count="1" data-ad_frequency_period="720" data-type="mobile" data-browser_settings="1" data-ad_trigger_method="3" src="https://a.realsrv.com/fp-interstitial.js"></script>-->
+    <!-- <script type="application/javascript" src="https://a.realsrv.com-slider.js"></script> -->
     <script type="application/javascript">
         var adConfig = {
             "idzone": 4646550,
@@ -173,47 +146,17 @@ $dir = "/uploads/";
         };
         //ExoVideoSlider.init(adConfig);
     </script>
- <?php if (!empty($bottom)) { ?>
-        <div class="header">
-            <!-- 하단배너 배너 -->
-            <div class="banner" style="bottom: -5%;">
-                <a href="<?= $bottom['APND_FILE_LiNK_YN'] == 'Y' ? $bottom['APND_FILE_LiNK'] : '#' ?>" target="_blank">
-                    <img src="<?= $dir . $bottom['APND_FILE_NM'] ?>">
-                </a>
-            </div>
-        </div>
-    <?php } ?>
-
-    <?php if (!empty($popup)) { ?>
-        <!-- popup -->
-        <div class="layer_bg" style="display:none">
-            <div class="popup" style="position:fixed">
-                <p class="popup_close">x</p>
-                <a href="<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '#' ?>" target="_blank">
-                    <!-- <img src="img/test.jpg"> -->
-                    <img class="w100" style="width:350px;" src="<?= $dir . $popup['APND_FILE_NM'] ?>">
-                </a>
-            </div>
-        </div>
-    <?php } ?>
-
-    <?php if (!empty($mid)) { ?>
-    <div class="bottom_right_banner">
-        <p class="bottom_right_banner_close">x</p>
-        <a href="<?= $mid['APND_FILE_LiNK_YN'] == 'Y' ? $mid['APND_FILE_LiNK'] : '#' ?>" target="_blank">
-            <img src="<?= $dir . $mid['APND_FILE_NM'] ?>">
-        </a>
-    </div>
-    <?php } ?>
-
     <header>
+        <!--
+<script type="text/javascript" src="https://www.twidouga.net/ko/js/inste.js"></script>
+<script type="text/javascript" src="https://js.waqool.com/t/029/856/a90029856.js"></script>-->
         <div id="headertop">
             <div style="display:inline-flex">
                 <div id="nav">
                     <ul>
-                        <li class="save popupOpen" id="here" style="padding-top: 1px;"><b>저장</b></li>
-                        <li class="ranking popupOpen">랭킹</li>
-                        <li class="live popupOpen">실시간</li>
+                        <li id="here" style="padding-top: 1px;"><b>저장</b></li>
+                        <li><a href="https://twi-save.com/ranking_t.php?index=0">랭킹</a></li>
+                        <li><a href="https://twi-save.com/realtime_t.php">실시간</a></li>
                     </ul>
                 </div>
             </div>
@@ -236,7 +179,16 @@ $dir = "/uploads/";
             }
         </script>
         <br>
-
+        <!--
+<div style="display:inline-block" style="display:none;">
+<a href="https://www.nurumayu.net/ko/instagazou/geturl.php" target="_blank"><img src="img/link_instagazou_ko.png" border="0" /></a>
+<a href="https://www.nurumayu.net/ko/instagazou/getdouga.php" target="_blank"><img src="img/link_instadouga_ko.png" border="0" /></a>
+</div>
+<br>
+<div style="display:inline-block" style="display:none;">
+<a href="https://www.nurumayu.net/ko/twidouga/gettwi.php" target="_blank"><img src="img/link_twidouga_ko.png" border="0" /></a>
+<a href="https://www.nurumayu.net/ko/facedouga/getbook.php" target="_blank"><img src="img/link_facedouga_ko.png" border="0" /></a>
+</div>-->
         <br>
         <div class="pcnone" style="display:none;">
             <script async type="application/javascript" src="https://a.realsrv.com/ad-provider.js"></script>
@@ -256,22 +208,9 @@ $dir = "/uploads/";
                 });
             </script>
         </div>
-
-        <div style="margin-bottom: 30px;">
-            <?php if (!empty($top)) { ?>
-                <div style="margin-top: 30px;">
-                    <a href="<?= $top['APND_FILE_LiNK_YN'] == 'Y' ? $top['APND_FILE_LiNK'] : '#' ?>" target="_blank">
-                        <img style="width: 300;" src="<?= $dir . $top['APND_FILE_NM'] ?>">
-                    </a>
-                </div>
-            <?php } ?>
-        </div>
-
-        <form name="form" method="post" action="index.php" enctype="multipart/form-data">
-
+        <form name="form" method="post" action="s1.php" enctype="multipart/form-data">
             <input type="text" name="para" id="para" size="33" value placeholder="URL을 붙여 넣기" />
-            <blockquote class="twitter-tweet"><a href="https://twitter.com/twiiter_save/status/1720036664431738953?s=46&t=iSCnMPTTaFRtiKg4SUFFCg"></a>
-            </blockquote>
+            <blockquote class="twitter-tweet"><a href="https://twitter.com/twiiter_save/status/1720036664431738953?s=46&t=iSCnMPTTaFRtiKg4SUFFCg"></a></blockquote>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <br>
             <?php
@@ -315,9 +254,7 @@ $dir = "/uploads/";
         </form>
         <br>
         <div>
-            <!-- <iframe style="display:none;" src="https://27934.agatarainpro.com/v2/a/na/if/195111" frameborder="0" scrolling="no" width="300" height="250"></iframe> -->
-            <!-- 전면 광고  -->
-
+            <iframe style="display:none;" src="https://27934.agatarainpro.com/v2/a/na/if/195111" frameborder="0" scrolling="no" width="300" height="250"></iframe>
         </div>
         <br>
         <div class="pcnone">
@@ -351,8 +288,7 @@ $dir = "/uploads/";
                 <li>PC를 이용하시는 분께서는, 동영상 혹은 URL을 클릭하여 저장하실 수 있습니다.</li>
             </ol>
             <br>
-            <center><a href="img/twiurl.png" target="_blank"><img src="img/twiurl.png" alt="howto" width="90%"></a>
-            </center>
+            <center><a href="img/twiurl.png" target="_blank"><img src="img/twiurl.png" alt="howto" width="90%"></a></center>
             <br>
             【아이폰】
             <ul>
@@ -365,8 +301,7 @@ $dir = "/uploads/";
                         <a href="https://itunes.apple.com/ko/app/dropbox/id327630330?mt=8" target="_blanc"> <img src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
                         <a href="https://play.google.com/store/apps/details?id=com.dropbox.android" target="_blanc"><img src="img/btn-google.png" style="max-width:100px;"></a>
             </ul>
-            <center><a href="img/dougaip.png" target="_blank"><img src="img/dougaip.png" alt="howto" width="60%"></a>
-            </center>
+            <center><a href="img/dougaip.png" target="_blank"><img src="img/dougaip.png" alt="howto" width="60%"></a></center>
             <br>
             【안드로이드】
             <ul>
@@ -374,8 +309,7 @@ $dir = "/uploads/";
                 <li>「Clip」메뉴에서 복사하신 URL을 붙여놓기 하시면 됩니다.<br><br>
                     【Clipbox 다운로드】<br>
                     <div style="display:inline-flex">
-                        <a href="https://itunes.apple.com/ko/app/clipbox/id437758919?mt=8&at=1001laxu" target="_blanc">
-                            <img src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
+                        <a href="https://itunes.apple.com/ko/app/clipbox/id437758919?mt=8&at=1001laxu" target="_blanc"> <img src="img/btn-apple.png" style="max-width:100px;"></a>&nbsp;&nbsp;&nbsp;
                         <a href="https://play.google.com/store/apps/details?id=jp.co.granks.clipbox4Gp " target="_blanc"><img src="img/btn-google.png" style="max-width:100px;"></a>
                     </div>
                 </li>
@@ -394,75 +328,12 @@ $dir = "/uploads/";
             &nbsp;
         </div>
     </footer>
-
     <link rel="stylesheet" type="text/css" href="jquery.bxslider/jquery.bxslider.css">
     <script src="jquery.bxslider/jquery.bxslider.js"></script>
     <script src="js/autoloading.js"></script>
     <script src="js/jquery.overlayad.js"></script>
     <script>
-    $(document).ready(function () {
-        console.log("test");
-        let url;
-        let popup_link = "<?= $popup['APND_FILE_LiNK_YN'] == 'Y' ? $popup['APND_FILE_LiNK'] : '0' ?>";
-
-        if ($(".layer_bg").css("display") == "block") {
-            $("html, body").css({
-                overflow: "hidden",
-                height: "100%",
-            });
-        }
-
-        // 팝업 열기
-        $(".popupOpen").on("click", function () {
-            url = $(this).attr("class").split(" ")[0];
-            console.log(url);
-            if ($(".layer_bg").css("display") == "none") {
-                $(".layer_bg").show();
-
-                $("html, body").css({
-                    overflow: "hidden",
-                    height: "100%",
-                });
-            }
-        });
-
-        // 팝업 닫기
-        $(".popup_close").on("click", function () {
-            console.log("popup_close");
-            if ($(".layer_bg").css("display") != "none") {
-                $(".layer_bg").hide();
-                // $('body').off('scroll touchmove mousewheel');
-            }
-            $("html, body").css({
-                overflow: "scroll",
-            });
-            if (popup_link != "0" && popup_link != null) {
-                console.log(123);
-                window.open(popup_link, "_blank");
-            }
-            switch (url) {
-                case "save":
-                    location.href = "index.php";
-                    break;
-                case "ranking":
-                    location.href = "ranking_t.php?index=0";
-                    break;
-                case "live":
-                    location.href = "realtime_t.php";
-                    break;
-                default:
-                    break;
-            }
-
-        });
-        $(".bottom_right_banner_close").on("click", function () {
-            // 버튼을 클릭했을 때
-            $(".bottom_right_banner").slideToggle(600); //토글작동!!
-            return false;
-        });
-    });
-</script>
-
+    </script>
 </body>
 
 </html>

@@ -9,7 +9,8 @@
   color: #fff;
 }
 
-.layer_bg {
+.layer_bg,
+.realtime_layer_bg {
   display: none;
   position: absolute; /* 시작 지점을 버튼 위, 0픽셀부터 시작하려고 주는 것*/
   top: 0;
@@ -20,7 +21,8 @@
   z-index: 9999;
 }
 
-.popup {
+.popup,
+.realtime_popup {
   position: absolute;
   padding: 15px;
   box-sizing: border-box;
@@ -38,6 +40,7 @@
   right: 1rem;
   position: absolute;
   top: 0.6rem;
+  margin: 15px;
 }
 
 .header .hTopIn {
@@ -77,11 +80,13 @@
 .header .banner {
   position: fixed;
   z-index: 100 !important;
-  left: 0px;
-  bottom: -10px;
+  /* left: 0px; */
+  bottom: -5%;
   /* width: 100%; */
   text-align: center;
   top: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: inline-block;
 }
 
@@ -94,18 +99,20 @@
 .bottom_right_banner {
   position: fixed;
   right: 0px;
-  bottom: 0px;
+  bottom: 9%;
 }
 
 .bottom_right_banner_close {
+  margin-left: 5;
+  margin-right: 5;
   right: 1rem;
   position: absolute;
   top: 0.6rem;
 }
-
+/* 
 .realtime_layer_bg {
   display: none;
-  position: absolute; /* 시작 지점을 버튼 위, 0픽셀부터 시작하려고 주는 것*/
+  position: absolute; 
   top: 0;
   left: 0;
   width: 100%;
@@ -119,14 +126,12 @@
   padding: 15px;
   box-sizing: border-box;
   border-radius: 15px;
-  /* width: 600px; */
-  /* height: 400px; */
   background: #fff;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2); /*x y 번짐 색상*/
-}
+  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2); 
+} */
 
 .realtime_popup_close {
   right: 1rem;
